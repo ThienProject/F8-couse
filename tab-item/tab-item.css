@@ -1,0 +1,50 @@
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    display: flex;
+}
+.container{
+    max-width: 720px;
+    margin: 5%  auto 0;
+}
+.tabs{
+    display: flex;
+    position: relative;
+}
+.tab-item{
+    cursor: pointer;
+    padding : 20px;
+    font-size : 25px;
+    color : #f6a8c1;
+    border-bottom: 5px solid transparent;
+}
+.tab-item:hover{
+    border-color:  #f6a8c1;
+}
+.tab-item.active{
+    color : #e9175a;
+}
+.line{
+    height: 6px;
+    left: 0;
+    bottom: 0;
+    width: 20%;
+    position : absolute;
+    border-radius: 15px;
+    background-color : #e9175a;
+    transition: all 0.5s ease;
+}
+.contents{
+    font-size: 22px;
+    margin-top: 36px;
+}
+.content-item {
+    display : none;
+
+}
+.content-item.active{
+    display : block;
+}
