@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/mussic.css">
+    <script src="https://kit.fontawesome.com/9934f292ea.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="intro">
+                <h5 class = "">Now playing</h5>
+                <h3 class = "heading">Nevada</h3>
+            </div>
+            
+            <div class="cd">
+                <div class="cd-thumb" style="background-image: url('assets/imgs/download.jpg');">
+
+                </div>
+            </div>
+            <div class="option-bar">
+                <div class="btn-rotate">
+                    <i class="fa-solid fa-arrow-rotate-right"></i>
+                </div>
+               <div class="btn-backward">
+                <i class="fa-solid fa-backward-step"></i>
+               </div>
+               <div class="play-action">
+                <i class="fa-solid fa-pause"></i>
+                <i class="fa-solid fa-play"></i> 
+               </div>
+               <div class="btn-forward">
+                <i class="fa-solid fa-forward-step"></i>
+               </div>
+               
+                
+                <div class="btn-random">
+                <i class="fa-solid fa-shuffle"></i>
+                </div>
+            </div>
+                <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
+
+                <audio id="audio" src=""></audio>
+           
+        </header>
+        <section class="content">
+            <div class="songs">
+             
+                 
+               
+            </div>
+        </section>
+        
+    </div>
+    <script type="text/javascript" src="assets/mussic.js"></script>
+</body>
+</html>
