@@ -14,21 +14,21 @@ body{
     overflow: hidden;
     position: fixed;
     padding: 20px 30px;
-    min-width: 200px;
+    min-width: 300px;
     background : rgb(255,255,255);
 }
-.songs{
-    margin-top: 375px;
-}
+
 .container{
+    
+    background-color: white;
     box-sizing: border-box;
     overflow: hidden;
     border-radius : 2px;
     box-shadow: 1px 1px 4px rgb(0,0,0,0.2);
-    margin : 20px;
+    
     text-align: center;
     justify-items: center;
-    min-width: 260px;
+    min-width: 360px;
 }
 
 .intro{
@@ -86,18 +86,72 @@ body{
     margin-top: 10px;
 }
 .songs{
+    padding : 5px;
+    margin-top: 375px;
     box-sizing: border-box;
 }
-
 .song-item{
-    padding : 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+
+    text-align: center;
+    padding : 10px 0;
     background : rgb(255,255,255);
     border-radius : 3px;
     margin : 10px;
     box-shadow: 1px 1px 4px rgb(0,0,0,0.2);
+    
+}
+.song-item__img{
+    
+    margin : 0  10px 0 0px;
+    display : inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius : 50% ;
+}
+.song-infor{
+    display : inline-block;
+    min-width: 180px;
+
+}
+.song-title{
+
+    text-align: left;
+}
+.song-author{
+    text-align: left;
+    font-size: 12px;
+    color : #555;
+}
+.song-spectrum{
+    margin: 0 5px;
+    visibility: hidden;
+    width: 30px;
+    display: inline;
+ 
+}
+.song-spectrum__1{
+    display: inline-block;
+    background-color: red;
+    height: 15px;
+    width: 6px;
+}
+.song-spectrum__2{
+    display: inline-block;
+    background-color: rgb(231, 82, 139);
+    height: 15px;
+    width: 6px;
+    
+}
+.song-spectrum__3{
+    display: inline-block;
+    background-color: rgb(226, 82, 231);
+    height: 15px;
+    width: 6px;
+}
+.song-item.active .song-spectrum{
+   display: inline-block;
+   visibility: visible;
+
 }
 .song-item:active{
     opacity: 0.5;
@@ -106,30 +160,30 @@ body{
     color : #fff;
     background-color :   rgb(235, 111, 132);
 }
-.song-title{
-    text-align: left;
 
-}
-.song-infor{
-   
-    min-width: 120px;
-}
-.song-item__img{
-    width: 20px;
-    height: 20px;
-    border-radius : 50% ;
-}
 
-.song-author{
-    text-align: left;
-    font-size: 12px;
-    color : #555;
-}
+
+
 .active .song-author{
     color : #fff;
 }
+.bottom{
+    align-items : center;
+    display: flex;
+    justify-content: space-evenly;
+}
+.btn-volum{
+    text-align: left;
+    width: 2px;
+    margin-left :5px ; 
+  }
+  .btn-volum i{
+      
+      color: #000;
+  }
 #progress{
-    width: 100%;
+    display : inline;
+   width: 80%;
     outline: none;
     background: #d3d3d3;
     -webkit-appearance: none;
@@ -151,6 +205,7 @@ body{
   i{
       cursor: pointer;
   }
+
 .btn-random.active , .btn-rotate.active ,.btn-backward.active, .btn-forward.active 
 {
     color:rgb(235, 111, 132);

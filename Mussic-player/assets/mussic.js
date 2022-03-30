@@ -11,11 +11,20 @@ const btnPrev = $('.btn-backward');
 const btnRamdom = $('.btn-random');
 const btnRepeat = $('.btn-rotate');
 const btnSongs = $('.songs');
+
+
+//localStorage.setItem('thien','test');
+const PLAYER_STORAGE_KEY = 'F8_PLAYER';
 const app = {
     isPlaying: false,
     isRamdom : false,
     isRepeat : false,
     currentIndex: 0,
+    config:JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
+    setConfig: function (key,value) {
+        this.config[key] = value;
+        localStorage.setItem(PLAYER_STORAGE_KEY,JSON.stringify(this.config));
+    },
     songs: [
         {
             name: 'Hoa Hải Đường',
@@ -36,40 +45,46 @@ const app = {
             img: 'imgs/thien-dang.jpeg'
         },
         {
-            name: 'Nevada',
+            name: 'Ái Nộ',
+            singer: 'Masew, Khôi Vũ',
+            path: 'music/ai-no.mp3',
+            img: 'imgs/ai-no.jpg'
+        },
+        {
+            name: 'Y chang mùa xuân',
             singer: 'Vicetone',
             path: 'music/audio_y-chang-xuan-sang.mp3',
             img: 'imgs/y-chang-xuan-sang.jpeg'
         },
         {
-            name: 'Nevada',
-            singer: 'Vicetone',
-            path: 'music/audio_y-chang-xuan-sang.mp3',
-            img: 'imgs/y-chang-xuan-sang.jpeg'
+            name: 'Nợ Ai Đó Lời Xin Lỗi',
+            singer: 'Bozitt',
+            path: 'music/no-ai-do-loi-xin-loi.mp3',
+            img: 'imgs/no-ai-do-loi-xin-loi.jpg'
         },
         {
-            name: 'Nevada',
-            singer: 'Vicetone',
-            path: 'music/audio_y-chang-xuan-sang.mp3',
-            img: 'imgs/y-chang-xuan-sang.jpeg'
+            name: 'Mình Anh Nơi Này',
+            singer: 'Lofi Version',
+            path: 'music/minh-anh-noi-nay.mp3',
+            img: 'imgs/minh-anh-noi-nay.jpg'
         },
         {
-            name: 'Nevada',
-            singer: 'Vicetone',
-            path: 'music/audio_y-chang-xuan-sang.mp3',
-            img: 'imgs/y-chang-xuan-sang.jpeg'
+            name: 'Đường Tôi Chở Em Về',
+            singer: 'Bùi Trường Linh',
+            path: 'music/duong-toi-cho-em-ve.mp3',
+            img: 'imgs/duong-toi-cho-em-ve.jpg'
         },
         {
-            name: 'Nevada',
-            singer: 'Vicetone',
-            path: 'music/audio_y-chang-xuan-sang.mp3',
-            img: 'imgs/y-chang-xuan-sang.jpeg'
+            name: 'Người Em Cố Đô',
+            singer: 'Đaa',
+            path: 'music/nguoi-em-co-do.mp3',
+            img: 'imgs/nguoi-em-co-do.jpg'
         },
         {
-            name: 'Nevada',
-            singer: 'Vicetone',
-            path: 'music/audio_y-chang-xuan-sang.mp3',
-            img: 'imgs/y-chang-xuan-sang.jpeg'
+            name : 'Mập Mờ',
+            singer : 'Rin9',
+            path: 'music/map-mo.mp3',
+            img: 'imgs/map-mo.jpg'
         }
 
     ],
@@ -81,8 +96,18 @@ const app = {
                 <h4 class="song-title">${song.name}</h4>
                 <p class="song-author">${song.singer}</p>
             </div>
-            
-            <i class="option fa-solid fa-ellipsis"></i>
+            <div class="song-spectrum">
+                <div class="song-spectrum__1">
+                
+                </div>
+                 <div class="song-spectrum__2">
+                
+                 </div>
+                    <div class="song-spectrum__3">
+                
+                    </div>
+            </div>
+            <i class=" song-option fa-solid fa-ellipsis"></i>
         </div>`;
         });
         //  console.log(htmls);
@@ -91,12 +116,18 @@ const app = {
     // Định nghĩa đối tượng currentSong;
     defineProperties: function () {
         Object.defineProperty(this, 'currentSong', {
+
             get: function () {
+                
                 return this.songs[this.currentIndex];
+                
             }
         })
     },
     handleEvents: function () {
+        
+       
+
         //common 
         let duration = 0;
         ////
@@ -124,19 +155,28 @@ const app = {
 
         // Xử lý click play
         btnPlay.onclick = function () {
-
+            
             if (app.isPlaying) {
                 audio.pause();
             }
             else {
                 audio.play();
             }
+           
         }
         audio.onplay = function () {
+            app.setConfig('currentIndex', app.currentIndex);
             showItemSongPlaying();
             header.classList.add("playing");
             app.isPlaying = true;
             cdthumbAnimate.play();
+            // spectrum khi play
+            const spectrum1  = $('.active .song-spectrum__1');
+            const spectrum2  = $('.active .song-spectrum__2');
+            const spectrum3  = $('.active .song-spectrum__3');
+            playspectrum(spectrum1, spectrum2, spectrum3);
+            console.log(spectrum1, spectrum2, spectrum3)
+           
         }
         audio.onpause = function () {
             cdthumbAnimate.pause();
@@ -190,6 +230,7 @@ const app = {
                     btnRepeat.click();
                 }
                 app.isRamdom = !app.isRamdom;
+                app.setConfig('isRamdom', app.isRamdom); //lưu trạng thai ramdom
                 btnRamdom.classList.toggle('active',app.isRamdom);   
                 
         }
@@ -210,7 +251,9 @@ const app = {
                 btnRamdom.click();
             }
             app.isRepeat =  !app.isRepeat;
+            app.setConfig('isRepeat', app.isRepeat); //lưu trạng thai ramdom
             btnRepeat.classList.toggle('active');
+            
         }
 
          // handle playlist show currentSong 
@@ -243,7 +286,7 @@ const app = {
         //click song item 
         btnSongs.onclick = function(e){
             const songNode = e.target.closest('.song-item:not(.active)');
-            console.log(songNode);
+          //  console.log(songNode);
            if( songNode ||e.target.closest('.option') ){ 
                // khi click vào song 
                if(songNode){
@@ -260,6 +303,44 @@ const app = {
                
             }
         }
+        // handle spectrum audio tabActive
+       
+  
+        playspectrum = function (spectrum1, spectrum2, spectrum3){
+            setInterval(() => {
+                setTimeout(() => {
+                    if(spectrum1.style.height == '6px'){
+                        spectrum1.style.height = '15px';
+                    } 
+                    else
+                    {
+                        spectrum1.style.height = '6px';
+                    }
+                },50)
+                setTimeout(() => {
+                    if(spectrum2.style.height == '6px'){
+                        spectrum2.style.height = '15px';
+                    } 
+                    else
+                    {
+                        spectrum2.style.height = '6px';
+                    }
+                },100)
+                setTimeout(() => {
+                    if(spectrum3.style.height == '6px'){
+                        spectrum3.style.height = '15px';
+                    } 
+                    else
+                    {
+                        spectrum3.style.height = '6px';
+                    }
+                },150)
+                
+               
+            }, 200);
+        };
+
+       
     },
    
     loadCurrentSong: function () {
@@ -292,13 +373,22 @@ const app = {
         while (this.currentIndex ==  tmpSong);
         this.loadCurrentSong();
     },
- 
+    loadConfig:function(){
+        this.isRamdom = this.config.isRamdom;
+        this.isRepeat = this.config.isRepeat;
+        this.currentIndex = !Object.is(NaN, Number(this.config.currentIndex) ) ?  Number(this.config.currentIndex) : 0;
+        console.log(this.currentIndex);
+        btnRepeat.classList.toggle('active',app.isRepeat);
+        btnRamdom.classList.toggle('active',app.isRamdom);
+    },
     start: function () {
+        //gán cấu hình từ config vào ứng dụng;
+        this.loadConfig();
         // định nghĩa các thuộc tính
         this.defineProperties();
 
         //reder playlist
-                this.render();
+        this.render();
                 
         // lắng nghe// sử lý các sự kiện event
         this.handleEvents();
