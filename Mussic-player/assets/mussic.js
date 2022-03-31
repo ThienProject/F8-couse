@@ -292,11 +292,15 @@ const app = {
         // volum 
         setVolume();
         function setVolume(){
-            progressVolume.value = audio.volume*100;
+           // app.setConfig('Volume',audio.volume);
             console.log ("amluong : "+audio.volume);
+            progressVolume.value = audio.volume*100;
+           
         }
         progressVolume.oninput  = function(){
             audio.volume = progressVolume.value /100;
+            app.setConfig('Volume',audio.volume);
+            
         }
 
         //click song item 
@@ -362,6 +366,7 @@ const app = {
         console.log(this.currentIndex);
         btnRepeat.classList.toggle('active',app.isRepeat);
         btnRamdom.classList.toggle('active',app.isRamdom);
+        audio.volume = !isNaN(this.config.Volume) ? this.config.Volume  :1;
        
     },
     start: function () {
