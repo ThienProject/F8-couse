@@ -360,12 +360,17 @@ const app = {
         this.loadCurrentSong();
     },
     loadConfig:function(){
+        
         this.isRamdom = this.config.isRamdom;
         this.isRepeat = this.config.isRepeat;
+             console.log(this.isRamdom, this.isRepeat)
+            btnRepeat.classList.toggle('active',this.isRepeat ? this.isRepeat : false);
+            btnRamdom.classList.toggle('active',this.isRamdom ? this.isRamdom : false);
+        
+        
         this.currentIndex = !Object.is(NaN, Number(this.config.currentIndex) ) ?  Number(this.config.currentIndex) : 0;
         console.log(this.currentIndex);
-        btnRepeat.classList.toggle('active',app.isRepeat);
-        btnRamdom.classList.toggle('active',app.isRamdom);
+        
         audio.volume = !isNaN(this.config.Volume) ? this.config.Volume  :1;
        
     },
