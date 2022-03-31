@@ -11,7 +11,9 @@ const btnPrev = $('.btn-backward');
 const btnRamdom = $('.btn-random');
 const btnRepeat = $('.btn-rotate');
 const btnSongs = $('.songs');
-
+const timeCurent = $('.timeCurent');
+const timeDuration = $('.timeDuration');
+const progressVolume = $('#progressVolume');
 
 //localStorage.setItem('thien','test');
 const PLAYER_STORAGE_KEY = 'F8_PLAYER';
@@ -142,7 +144,7 @@ const app = {
             // lặp lại : vô hạn
         })
         cdthumbAnimate.pause();
-
+        
         // Xử lý phóng to thu nhỏ cd
         const cd = $('.cd');
         const cdWidth = cd.offsetWidth;
@@ -170,12 +172,10 @@ const app = {
             header.classList.add("playing");
             app.isPlaying = true;
             cdthumbAnimate.play();
-            // spectrum khi play
-            const spectrum1  = $('.active .song-spectrum__1');
-            const spectrum2  = $('.active .song-spectrum__2');
-            const spectrum3  = $('.active .song-spectrum__3');
-            playspectrum(spectrum1, spectrum2, spectrum3);
-            console.log(spectrum1, spectrum2, spectrum3)
+            
+           
+           
+            
            
         }
         audio.onpause = function () {
@@ -187,24 +187,31 @@ const app = {
 
         /// Khi tiến độ bài hát thay đôi 
         audio.ontimeupdate = function () {
-
-            if (audio.duration) {
+            console.log(audio.duration)
+            if(audio.duration) {
+                //set progress
                 progress.value = (audio.currentTime * 100) / audio.duration;
-            }
 
+                // set show time
+                let totalSeconds = audio.duration ;
+                let totalMinutes = Math.floor(totalSeconds/60);
+                    totalSeconds = Math.floor(totalSeconds%60);
+                let currentSeconds = audio.currentTime;
+                let currentMinutes = Math.floor(currentSeconds/60);
+                currentSeconds = Math.floor(currentSeconds%60);
+                timeCurent.innerText = currentMinutes + ":" +currentSeconds ;
+                timeDuration.innerText = totalMinutes + ":" +totalSeconds ;
+            }
+            
+           
         }
+
         ///seek song 
         progress.oninput = function (e) {
-            
-            if (audio.pause) {
-                audio.play();
-                header.classList.add("playing");
-            }
             duration = audio.duration;
             const progressCurrent = e.target.value;
             const timeSeek = (progressCurrent * duration) / 100;
             audio.currentTime = timeSeek;
-
         }
         /// handle next audio
         btnNext.onclick = function () {
@@ -231,6 +238,7 @@ const app = {
                 }
                 app.isRamdom = !app.isRamdom;
                 app.setConfig('isRamdom', app.isRamdom); //lưu trạng thai ramdom
+                
                 btnRamdom.classList.toggle('active',app.isRamdom);   
                 
         }
@@ -281,7 +289,15 @@ const app = {
             },300)
         }
         showItemSongPlaying();
-
+        // volum 
+        setVolume();
+        function setVolume(){
+            progressVolume.value = audio.volume*100;
+            console.log ("amluong : "+audio.volume);
+        }
+        progressVolume.oninput  = function(){
+            audio.volume = progressVolume.value /100;
+        }
 
         //click song item 
         btnSongs.onclick = function(e){
@@ -298,50 +314,16 @@ const app = {
                }
                // khi click vào option
                if(e.target.closest('.option')){
-
+                    
                }
                
             }
         }
+    },
         // handle spectrum audio tabActive
        
   
-        playspectrum = function (spectrum1, spectrum2, spectrum3){
-            setInterval(() => {
-                setTimeout(() => {
-                    if(spectrum1.style.height == '6px'){
-                        spectrum1.style.height = '15px';
-                    } 
-                    else
-                    {
-                        spectrum1.style.height = '6px';
-                    }
-                },50)
-                setTimeout(() => {
-                    if(spectrum2.style.height == '6px'){
-                        spectrum2.style.height = '15px';
-                    } 
-                    else
-                    {
-                        spectrum2.style.height = '6px';
-                    }
-                },100)
-                setTimeout(() => {
-                    if(spectrum3.style.height == '6px'){
-                        spectrum3.style.height = '15px';
-                    } 
-                    else
-                    {
-                        spectrum3.style.height = '6px';
-                    }
-                },150)
-                
-               
-            }, 200);
-        };
-
        
-    },
    
     loadCurrentSong: function () {
 
@@ -380,13 +362,14 @@ const app = {
         console.log(this.currentIndex);
         btnRepeat.classList.toggle('active',app.isRepeat);
         btnRamdom.classList.toggle('active',app.isRamdom);
+       
     },
     start: function () {
         //gán cấu hình từ config vào ứng dụng;
         this.loadConfig();
         // định nghĩa các thuộc tính
         this.defineProperties();
-
+        this.loadCurrentSong();
         //reder playlist
         this.render();
                 
@@ -394,7 +377,7 @@ const app = {
         this.handleEvents();
 
         //tải bài hát đầu tiên vào ui khi chạy ứng dụng
-        this.loadCurrentSong();
+       
 
         
 
