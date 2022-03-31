@@ -22,6 +22,7 @@ const app = {
     isRamdom : false,
     isRepeat : false,
     currentIndex: 0,
+    prevPlayed : -1,
     config:JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
     setConfig: function (key,value) {
         this.config[key] = value;
@@ -265,19 +266,20 @@ const app = {
         }
 
          // handle playlist show currentSong 
-        let prevPlayed = -1;
+        
+        showItemSongPlaying();
         function showItemSongPlaying() {
-            const playlist = $$('.song-item');
-            if(!app.isRepeat && prevPlayed != -1){
-                playlist[prevPlayed].classList.remove('active');
-            }
-            if(!app.isRepeat){
-                const index = app.currentIndex ;
-                prevPlayed = index;
-                playlist[index].classList.add('active');
-            }
+                
+                const playlist = $$('.song-item');
+                if(app.prevPlayed != -1){
+                    playlist[app.prevPlayed].classList.remove('active');
+                }
+                
+                playlist[app.currentIndex].classList.add('active');
+                console.log(app.prevPlayed + "     " + app.currentIndex);
+            
                 // kéo song đang phát lên view
-                scrollToActiveSong(playlist[app.currentIndex]);
+        scrollToActiveSong(playlist[app.currentIndex]);
         }
         function scrollToActiveSong (songClass){
             setTimeout(()=>{
@@ -288,7 +290,7 @@ const app = {
                 })
             },300)
         }
-        showItemSongPlaying();
+        
         // volum 
         setVolume();
         function setVolume(){
@@ -312,6 +314,7 @@ const app = {
                if(songNode){
                     console.log(songNode.getAttribute('data-index'));
                     // app.currentIndex =  Number(songNode.dataset.index)
+                    app.prevPlayed = app.currentIndex;
                     app.currentIndex = songNode.getAttribute('data-index');
                     app.loadCurrentSong();
                     audio.play();
@@ -320,7 +323,7 @@ const app = {
                if(e.target.closest('.option')){
                     
                }
-               
+               showItemSongPlaying();
             }
         }
     },
@@ -334,9 +337,10 @@ const app = {
         songTitlePlaying.textContent = this.currentSong.name;
         cdThumb.style = `background-image : url('assets/${this.currentSong.img}')`;
         audio.src = 'assets/' + this.currentSong.path;
-
+       
     },
     nextSong: function () {
+        this.prevPlayed = this.currentIndex
         this.currentIndex++;
         if (this.currentIndex >= this.songs.length) {
             this.currentIndex = 0;
@@ -344,6 +348,7 @@ const app = {
         this.loadCurrentSong();
     },
     prevSong: function () {
+        this.prevPlayed = this.currentIndex
         this.currentIndex--;
         if (this.currentIndex <= 0) {
             this.currentIndex = this.songs.length - 1;
@@ -351,8 +356,10 @@ const app = {
         this.loadCurrentSong();
     },
     ramdomSong:function(){
+
         let tmpSong = this.currentIndex;
         do{
+            this.prevPlayed = this.currentIndex;
             this.currentIndex = Math.floor(Math.random()* (this.songs.length-1));
         }
         
@@ -363,15 +370,15 @@ const app = {
         
         this.isRamdom = this.config.isRamdom;
         this.isRepeat = this.config.isRepeat;
-             console.log(this.isRamdom, this.isRepeat)
-            btnRepeat.classList.toggle('active',this.isRepeat ? this.isRepeat : false);
-            btnRamdom.classList.toggle('active',this.isRamdom ? this.isRamdom : false);
+        console.log(this.isRamdom, this.isRepeat)
+        btnRepeat.classList.toggle('active',this.isRepeat ? this.isRepeat : false);
+        btnRamdom.classList.toggle('active',this.isRamdom ? this.isRamdom : false);
         
-        
-        this.currentIndex = !Object.is(NaN, Number(this.config.currentIndex) ) ?  Number(this.config.currentIndex) : 0;
-        console.log(this.currentIndex);
-        
-        audio.volume = !isNaN(this.config.Volume) ? this.config.Volume  :1;
+       
+        this.currentIndex = !isNaN( Number(this.config.currentIndex) ) ?  Number(this.config.currentIndex) : 0;
+        console.log("Bai hien tai "+this.currentIndex);
+       
+        audio.volume = !isNaN(this.config.Volume) ? this.config.Volume  : 1;
        
     },
     start: function () {
@@ -387,10 +394,6 @@ const app = {
         this.handleEvents();
 
         //tải bài hát đầu tiên vào ui khi chạy ứng dụng
-       
-
-        
-
     }
 }
 app.start();
