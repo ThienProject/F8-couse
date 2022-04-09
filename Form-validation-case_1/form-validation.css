@@ -76,12 +76,12 @@
    display: flex;
    margin-top: 0;
   }
-  .gender-group div {
+  .gender-group div , .course-group div{
     align-items:center;
     display: flex;
     margin: 0 20px 0 0;
   }
-  .gender-group input{
+  .gender-group input , .course-group input{
     margin : 2px;
   }
   .form-group.invalid .form-message {
