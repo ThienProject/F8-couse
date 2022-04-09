@@ -1,0 +1,117 @@
+*{
+    margin: 0 auto;
+    padding: 0;
+    
+}
+body {
+    height : 100vh;
+    display: flex;
+    align-items: center;
+}
+#toast {
+    position: fixed;
+    top : 35px;
+    right : 35px;
+}
+.toast{
+    min-width: 400px;
+    max-width: 450px;
+    background-color:  #fff;
+    display: flex;
+    align-items:  center;
+    border-radius : 2px;
+    border-left: 4px solid ;
+    padding: 20px 0;
+    transition: all 0.5s linear;
+   /*  animation : slideInLeft  .3s ease-in-out, fadeOut linear 1s 3s forwards ; /* 3s mới begin animation */
+                                                             /* forward : dừng lại tại điểm cuối*/ 
+                                                             
+}
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(calc(100% + 32px));
+    }to 
+    {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes fadeOut{
+
+    to{
+        opacity: 0;
+    }
+}
+.toast + .toast{
+    margin : 30px 0 0 0;
+}
+.toast__icon{
+    font-size: 24px;
+}
+.toast__icon, .toast__close{
+    padding: 0 16px;
+}
+.toast__body{
+    flex-grow: 1;
+}
+.toast__title{
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+.toast__message{
+    margin-top : 7px;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5px;
+}
+.toast__close{
+    cursor: pointer;
+    font-size: 20px;
+    color:  rgba(0,0,0,0.3);
+}
+.toast--success{
+    border-color:#47d864;
+}
+.toast--success .toast__icon{
+    color : #47d864;
+}
+.toast--info{
+    border-color:#2f86eb;
+}
+.toast--info .toast__icon{
+   color : #2f86eb;
+}
+.toast--warning{
+    border-color:#ffc021;
+}
+.toast--warning .toast__icon{
+    color: #ffc021;
+}
+.toast--error{
+    border-color:#ff623d;
+
+}.toast--error .toast__icon{
+    color : #ff623d;
+}
+.btn {
+    cursor: pointer;
+    color : #fff;
+    background-color : #fff;
+    padding : 10px;
+    border-radius: 2px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+.btn:hover{
+    opacity : 0.9;
+}
+.btn:active{
+    opacity: 0.8;
+}
+.btn-success{
+    background-color:#47d864;
+}
+.btn-error{
+    background-color : #ff623d;
+}
