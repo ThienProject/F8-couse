@@ -51,8 +51,7 @@ function Validator(options) {
             var isValidForm = true;
             options.rules.forEach(function (rule) {
                 var inputElement = formElement.querySelector(rule.selector);
-               
-                    var formMessage = getParentElement(inputElement, options.formGroupSeletor).querySelector(options.formMessage);
+                     var formMessage = getParentElement(inputElement, options.formGroupSeletor).querySelector(options.formMessage);
                      var isValidRule = Validate(formMessage, inputElement, rule);
                 if (!isValidRule) {
                     isValidForm = false;
