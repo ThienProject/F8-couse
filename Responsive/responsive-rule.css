@@ -1,0 +1,14 @@
+/* Deltail search : media query common breakpoints 
+    use em ;
+
+*/
+/* Mobile : width < 740px */
+@media only screen and (max-width : 46.1875em) {
+     
+}
+/* Table : width >= 740 and width <1024px */
+@media only screen and (min-width : 46.25em) and (max-width : 63.9375em) {}
+/* PC : width >= 1024px*/
+@media only screen  and (min-width : 64em) {
+    
+}
