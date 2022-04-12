@@ -1,0 +1,13 @@
+.item{
+    background : rgb(191, 6, 232);
+    height: 300px;
+    text-align: center;
+    line-height: 300px;
+    margin-top: 16px;
+    color: #fff;
+}
+.sublitem{
+    height : 100px;
+    text-align: center;
+    background-color: rgb(227, 25, 25);
+}

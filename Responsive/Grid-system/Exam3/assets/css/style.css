@@ -1,0 +1,24 @@
+.item{
+    background : rgb(191, 6, 232);
+    height: 300px;
+    text-align: center;
+    line-height: 300px;
+    margin-top: 16px;
+    color: #fff;
+}
+.category{
+    margin-top: 16px;
+    background-color: yellow;
+}
+ul{
+    list-style: none;
+    text-align: center;
+}
+ul li:hover{
+    transform: translateX(-4px);
+    transition: transform .2s ease;
+}
+.item:hover{
+    transform: scale(1.02,1.02);
+    transition: transform .2s ease;
+}
