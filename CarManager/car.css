@@ -1,0 +1,49 @@
+.container{
+    width: 500px;
+    margin : 20px auto;
+    background-color : lightblue;
+    text-align : center;
+    border-radius : 4px;
+    padding : 40px;
+}
+.btn-add{
+    border : none;
+    border-radius:  3px;
+    padding : 5px;
+    background-color : blue;
+    color : #fff;
+}
+#input-carname{
+    padding : 5px;
+    border : none;
+    margin : 0 10px;
+}
+.body{
+    padding : 0 70px;
+    margin : 10px auto;
+    text-align: left;
+}
+.car-list{
+    list-style: none;
+}
+.car-item__name{
+    display: inline-block;
+   
+}
+ul li{
+    justify-content: space-between;
+    display : flex;
+    margin : 10px 0;
+    padding : 10px;
+    border-bottom: 1px solid rgb(152, 147, 147);
+}
+.btn-delete {
+    background : #fff;
+    color : red;
+    border : none;
+    border-radius : 2px;
+    cursor: pointer;
+}
+.btn-delete:hover{
+    opacity : 0.7;
+}
