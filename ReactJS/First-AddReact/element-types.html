@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function Post(){
+            return (
+                <div class="post">
+                    <img src="https://tse1.mm.bing.net/th?id=OIP.l2WAAayILxNgL4bZ-SfVaAHaLH&pid=Api&w=200" alt="" />
+                    <h2 className="post-title">C# - Tương tác</h2>    
+                    <p className="post-desc">Kiến thức C# toàn tập</p>
+                </div>
+            );
+        }
+        function App(){
+            return (
+                <div className = "posts">
+                <Post />
+                <Post />
+                <Post />
+                <Post />
+                </div>
+            );
+        }
+       
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

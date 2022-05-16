@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .btn{
+            border : none;   
+            width: 100px;
+            display: block;
+            margin: 0 auto;
+            text-decoration: none;
+            color: black;
+            background-color : lightblue;
+            padding: 20px;
+            text-align: center;
+            border-radius : 10px;
+            margin-top: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function Button({prop,href,onClick}){
+            let Component = 'button';
+            const props = {};
+            if(href){
+                props.href = href;
+                Component = 'a'
+            }
+            if(onClick){
+                props.onClick = onClick;
+            }
+            return <Component className ="btn"  {...props}>{prop}</Component>
+        }
+
+        function App(){
+            return (
+                <div class="wrapper">
+                    <Button 
+                        prop = "click"
+                        //href="https://codtalk.tk" 
+                        onClick = {()=>alert("Clicked")}
+                    />
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById("root"))
+    </script>
+</body>
+</html>
